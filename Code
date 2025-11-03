@@ -120,6 +120,9 @@ class AirlineReservationSystem {
     public void addFlight(String flightNumber, String origin, String destination, int capacity) {
         if (flightCount < flights.length) {
             flights[flightCount++] = new Flight(flightNumber, origin, destination, capacity);
+            System.out.println("Flight " + flightNumber + " added successfully.");
+        } else {
+            System.out.println("Cannot add more flights. Maximum reached.");
         }
     }
 
@@ -134,6 +137,10 @@ class AirlineReservationSystem {
 
     public void showAllFlights() {
         System.out.println("\n--- Available Flights ---");
+        if (flightCount == 0) {
+            System.out.println("No flights available.");
+            return;
+        }
         for (int i = 0; i < flightCount; i++) {
             Flight f = flights[i];
             System.out.println((i + 1) + ". Flight " + f.getFlightNumber() +
@@ -180,7 +187,8 @@ public class AirlineReservationDemo {
             System.out.println("2. Cancel Ticket");
             System.out.println("3. Show Passangers of a Flight");
             System.out.println("4. Show All Flights");
-            System.out.println("5. Exit");
+            System.out.println("5. Add Flight");
+            System.out.println("6. Exit");
 
             int choice = readInt(sc, "Enter choice: ");
 
@@ -260,6 +268,25 @@ public class AirlineReservationDemo {
                     break;
 
                 case 5:
+                    // New "Add Flight" section
+                    System.out.println("\n--- Add a New Flight ---");
+                    String newFlightNo = readNonEmptyString(sc, "Enter Flight Number (e.g., AI404): ");
+                    // Check if flight already exists
+                    if (ars.getFlight(newFlightNo) != null) {
+                        System.out.println("Flight with number " + newFlightNo + " already exists.");
+                        break;
+                    }
+                    String origin = readNonEmptyString(sc, "Enter Origin: ");
+                    String destination = readNonEmptyString(sc, "Enter Destination: ");
+                    int capacity = readInt(sc, "Enter Capacity (number of seats): ");
+                    if (capacity <= 0) {
+                        System.out.println("Capacity must be a positive integer. Flight not added.");
+                        break;
+                    }
+                    ars.addFlight(newFlightNo, origin, destination, capacity);
+                    break;
+
+                case 6:
                     System.out.println("Exiting...");
                     sc.close();
                     System.exit(0);
