@@ -188,8 +188,8 @@ The system handles:
 ## 👤 About
 
 **Author:** Ayush Yadav  
-**Status:** B.Tech Student Project  
-**Created:** 2024-2025  
+**Status:** B.Tech Student 
+**Created:** 2026 
 **License:** Open Source
 
 ---
